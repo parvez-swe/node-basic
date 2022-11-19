@@ -45,8 +45,11 @@ const server = http.createServer((req, res) => {
   } else if (pathName === "/product") {
     res.end("This is product page");
   } else {
-    res.writeHead(404);
-    res.end("page not found");
+    res.writeHead(404,{
+        'Content-type':'text/html',
+        'my-owner-header':'hello-world',
+    });
+    res.end('<h1>Page not Found</h1>');
   }
 
   //   console.log(req.url);
