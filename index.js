@@ -37,13 +37,18 @@ const fs = require("fs");
 
 ////////////////////////////////////
 ///////////////SERVER
-
+const data = fs.readFileSync(`${__dirname}/deve-data/data.json`,'utf-8',(err,data)=>{
+    const productData = JSON.parse(data);
+});
 const server = http.createServer((req, res) => {
   const pathName = req.url;
   if (pathName === "/" || pathName === "/overview") {
     res.end("Hello from overview");
   } else if (pathName === "/product") {
     res.end("This is product page");
+  }
+  else if(pathName === '/api'){
+    res.end(data);
   } else {
     res.writeHead(404,{
         'Content-type':'text/html',
