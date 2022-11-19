@@ -37,9 +37,8 @@ const fs = require("fs");
 
 ////////////////////////////////////
 ///////////////SERVER
-const data = fs.readFileSync(`${__dirname}/deve-data/data.json`,'utf-8',(err,data)=>{
-    const productData = JSON.parse(data);
-});
+const data = fs.readFileSync(`${__dirname}/deve-data/data.json`,'utf-8');
+const productData = JSON.parse(data);
 const server = http.createServer((req, res) => {
   const pathName = req.url;
   if (pathName === "/" || pathName === "/overview") {
