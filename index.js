@@ -37,7 +37,7 @@ const fs = require("fs");
 
 ////////////////////////////////////
 ///////////////SERVER
-const data = fs.readFileSync(`${__dirname}/deve-data/data.json`,'utf-8');
+const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
 const productData = JSON.parse(data);
 const server = http.createServer((req, res) => {
   const pathName = req.url;
@@ -45,15 +45,15 @@ const server = http.createServer((req, res) => {
     res.end("Hello from overview");
   } else if (pathName === "/product") {
     res.end("This is product page");
-  }
-  else if(pathName === '/api'){
+  } else if (pathName === "/api") {
+    res.writeHead(200, { "Content-type": "application/json" });
     res.end(data);
   } else {
-    res.writeHead(404,{
-        'Content-type':'text/html',
-        'my-owner-header':'hello-world',
+    res.writeHead(404, {
+      "Content-type": "text/html",
+      "my-owner-header": "hello-world",
     });
-    res.end('<h1>Page not Found</h1>');
+    res.end("<h1>Page not Found</h1>");
   }
 
   //   console.log(req.url);
