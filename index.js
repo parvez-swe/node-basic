@@ -36,18 +36,40 @@ const fs = require("fs");
 // console.log('will read file!');
 
 ////////////////////////////////////
-///////////////SERVER
+///////////////
+const templateOverview = fs.readFileSync(
+  `${__dirname}/template/template-overveiw.html`,
+  "utf-8"
+);
+const tempCard = fs.readFileSync(
+  `${__dirname}/template/template-card.html`,
+  "utf-8"
+);
+const tempProduct = fs.readFileSync(
+  `${__dirname}/template/template-product.html`,
+  "utf-8"
+);
+
 const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
 const productData = JSON.parse(data);
+
 const server = http.createServer((req, res) => {
   const pathName = req.url;
+
+  //OVERVIEW PAGE
   if (pathName === "/" || pathName === "/overview") {
     res.end("Hello from overview");
+
+    //PRODUCT PAGE
   } else if (pathName === "/product") {
     res.end("This is product page");
+
+    //API
   } else if (pathName === "/api") {
     res.writeHead(200, { "Content-type": "application/json" });
     res.end(data);
+
+    //NOT FOUND
   } else {
     res.writeHead(404, {
       "Content-type": "text/html",
