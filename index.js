@@ -37,7 +37,7 @@ const fs = require("fs");
 
 ////////////////////////////////////
 ///////////////
-const templateOverview = fs.readFileSync(
+const tempOverview = fs.readFileSync(
   `${__dirname}/template/template-overveiw.html`,
   "utf-8"
 );
@@ -58,7 +58,10 @@ const server = http.createServer((req, res) => {
 
   //OVERVIEW PAGE
   if (pathName === "/" || pathName === "/overview") {
-    res.end("Hello from overview");
+    res.writeHead(200, {
+      "Content-type": "text/html",
+    });
+    res.end(tempOverview);
 
     //PRODUCT PAGE
   } else if (pathName === "/product") {
