@@ -1,5 +1,6 @@
 const http = require("http");
 const url = require("url");
+const replaceTemplate = require("./modules/replaceTemplate");
 
 ///////////////////////////////////////
 ///////////////File
@@ -37,9 +38,6 @@ const fs = require("fs");
 
 ////////////////////////////////////
 ///////////////server
-
-
-
 const tempOverview = fs.readFileSync(
   `${__dirname}/templates/template-overview.html`,
   "utf-8"
@@ -54,14 +52,14 @@ const tempProduct = fs.readFileSync(
 );
 
 const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
-const productData = JSON.parse(data);
 const dataObj = JSON.parse(data);
 
 const server = http.createServer((req, res) => {
-  const pathName = req.url;
+  const { query, pathname } = url.parse(req.url, true);
+  //const pathName = req.url;
 
   //OVERVIEW PAGE
-  if (pathName === "/" || pathName === "/overview") {
+  if (pathname === "/" || pathname === "/overview") {
     res.writeHead(200, {
       "Content-type": "text/html",
     });
@@ -70,11 +68,13 @@ const server = http.createServer((req, res) => {
     res.end(output);
 
     //PRODUCT PAGE
-  } else if (pathName === "/product") {
-    res.end("This is product page");
+  } else if (pathname === "/product") {
+    const product = dataObj[query.id];
+    const output =replaceTemplate(tempProduct, product);
+    res.end(output);
 
     //API
-  } else if (pathName === "/api") {
+  } else if (pathname === "/api") {
     res.writeHead(200, { "Content-type": "application/json" });
     res.end(data);
 
