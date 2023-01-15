@@ -3,4 +3,4 @@ I am Mohammad Parvez Musharaf
 This is the node project of my self
 Let's go
 With sanity.io
-Now I am learning backend with
+Now I am learning backend with nodejs, expressjs and mongodb
